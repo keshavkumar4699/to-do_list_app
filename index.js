@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const port = 8000;
 
 //use express router for all get and post method
-app.use('/', require('./routes/home_router'));
-app.use('/user/', require('./routes/users_router'));
+app.use('/', require(path.join(__dirname,'./routes/home_router')));
 
 //setup view engine
 app.set('view engine', 'ejs');
