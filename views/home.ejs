@@ -7,78 +7,86 @@
   <title>
     <%=title%>
   </title>
-  <link href="../models/home.css" rel="stylesheet" type="text/css" />
   <script src="https://kit.fontawesome.com/20fefde760.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="../assets/css/home.css" rel="stylesheet" />
 </head>
 
 <body>
   <h2 class="text-center m-3">TO-DO List</h2>
   <div class="container">
 
-    <!-- add description -->
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="description" placeholder="What do you need to do?" required>
-      <label for="floatingInput">Description</label>
-    </div>
-
-    <div class="row g-2">
-      <!-- add due date -->
-      <div class="col-md">
-        <div class="form-floating">
-          <input type="date" class="form-control" id="due-date" required>
-          <label for="due-date">Due Date</label>
+    <form action="/addTask" id="add-task" method="post">
+      <!-- add description -->
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="description" placeholder="What do you need to do?" required>
+        <label for="floatingInput">Description</label>
+      </div>
+      <div class="row g-2">
+        <!-- add due date -->
+        <div class="col-md">
+          <div class="form-floating">
+            <input type="date" class="form-control" name="due_date" required>
+            <label for="due-date">Due Date</label>
+          </div>
+        </div>
+        <!-- select category -->
+        <div class="col-md mb-3">
+          <div class="form-floating">
+            <select class="form-select" name="category" id="category">
+              <option selected>Choose a category</option>
+              <option value="1">Personal</option>
+              <option value="2">Work</option>
+              <option value="3">School</option>
+              <option value="4">Cleaning</option>
+              <option value="5">Others</option>
+            </select>
+            <label for="category">Category</label>
+          </div>
         </div>
       </div>
-      <!-- select category -->
-      <div class="col-md mb-3">
-        <div class="form-floating">
-          <select class="form-select" id="catergory">
-            <option selected>Choose a category</option>
-            <option value="1">Personal</option>
-            <option value="2">Work</option>
-            <option value="3">School</option>
-            <option value="4">Cleaning</option>
-            <option value="5">Others</option>
-          </select>
-          <label for="category">Category</label>
-        </div>
-      </div>
-    </div>
+    </form>
 
     <div class="d-grid gap-2 col-12 d-sm-flex justify-content-center mb-3">
       <!-- Add Task button -->
-      <div class="btn btn-success" href="#" role="button">
+      <button class="btn btn-success" type="submit" form="add-task" value="Update">
         <i class="fa-solid fa-plus"></i>
         <a>Add Task</a>
-      </div>
+      </button>
 
-      <!-- Delete Tasks button -->
-      <div class="btn btn-danger" href="#" role="button">
+      <!-- Delete Tasks -->
+      <button class="btn btn-danger" id="delete-task">
         <i class="fa-solid fa-trash fa-xs"></i>
         <a>Delete Tasks</a>
-      </div>
+      </button>
     </div>
 
-    <!-- List of tasks to be performed -->
+    <!-- List of tasks to be deleted -->
     <%for(let i of tasks){%>
-    <div class="input-group mb-3">
-      <div class="input-group-text">
-        <input class="form-check-input mt-0" type="checkbox">
+      <div class="input-group mb-3">
+        <div class="input-group-text">
+          <input class="form-check-input mt-0" type="checkbox" name="taskCheckbox" id="<%=i.description%>">
+        </div>
+        <div class="form-floating">
+          <div class="form-control" id="task">
+            <%=i.description%>
+          </div>
+          <label for="task">
+            <div id="due_date">
+              <%=i.due_date%>
+            </div>
+          </label>
+        </div>
+        <span class="input-group-text" id="category">
+          <%=i.category%>
+        </span>
       </div>
-      <div class="form-floating">
-        <div class="form-control" id="task"><%=i.description%></div>
-        <label for="task"><div id="due_date"><%=i.due_date%></div></label>
-      </div>
-      <span class="input-group-text" id="category"><%=i.category%></span>
-    </div>
     <%}%>
-
 
   </div>
 
-
+  <script src="js/home.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>
