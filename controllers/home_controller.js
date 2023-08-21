@@ -1,48 +1,29 @@
-const selectCategory = require('../assets/js/selectedCategory');
-
-var taskList = [
-    {
-        description: "task1",
-        due_date: "12-10-2000",
-        category: "Work"
-    },
-    {
-        description: "task2",
-        due_date: "12-10-2000",
-        category: "Personal"
-    },
-    {
-        description: "task3",
-        due_date: "12-10-2000",
-        category: ""
-    }
-]
+const db = require('../config/mongoose.js');
+const Task = require('../models/taskSchema.js');
 
 module.exports.home = function(req, res){
-    return res.render('home',{
-        title: "Home",
-        tasks: taskList
+    Task.find({}).then (taskList=>{
+        return res.render('home', {
+            title: 'To-Do',
+            tasks: taskList
+        })
     });
 };
 
 module.exports.addTask = function(req, res){
-    taskList.push({
+    const newTask = new Task({
         description: req.body.description,
-        due_date: req.body.due_date,
-        category: selectCategory.category(req.body.category)
+        dueDate: req.body.due_date,
+        category: req.body.category
     });
-    
-    res.redirect('/');
+    newTask.save();
+
+    return  res.redirect('back');
 }
 
-module.exports.deleteTask = function(req, res){
-    console.log(req.query);
-    let description=req.query.id;
-    const index = taskList.findIndex(task => task.description == description);
-    console.log(index);
-    if(index!=-1){
-        taskList.splice(index, 1);
+module.exports.deleteTask = async(req, res)=>{
+    for(let id of req.query.id){
+        await Task.findByIdAndDelete({_id: id});
     }
-
-    return res.redirect('/');
+    return res.redirect('back');
 }

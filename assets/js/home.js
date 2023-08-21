@@ -13,8 +13,7 @@ deleteButton.addEventListener("click", () => {
   });
 
   // Create href URL with selected IDs
-  // const url = "deleteTask/?id=" + selectedIds.map((id) => `selected[]=${id}`).join("&");
-  const url = "deleteTask/?id=" + selectedIds.map((id) => `${id}`).join("&");
+  const url = "deleteTask/?" + selectedIds.map((id) => `id=${id}`).join("&");
   fetch(url)
     .then((response) => response.json())
     .then((data) => {

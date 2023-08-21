@@ -35,12 +35,12 @@
         <div class="col-md mb-3">
           <div class="form-floating">
             <select class="form-select" name="category" id="category">
-              <option selected>Choose a category</option>
-              <option value="1">Personal</option>
-              <option value="2">Work</option>
-              <option value="3">School</option>
-              <option value="4">Cleaning</option>
-              <option value="5">Others</option>
+              <option value="">Choose a category..</option>
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="School">School</option>
+              <option value="Cleaning">Cleaning</option>
+              <option value="Others">Others</option>
             </select>
             <label for="category">Category</label>
           </div>
@@ -66,7 +66,7 @@
     <%for(let i of tasks){%>
       <div class="input-group mb-3">
         <div class="input-group-text">
-          <input class="form-check-input mt-0" type="checkbox" name="taskCheckbox" id="<%=i.description%>">
+          <input class="form-check-input mt-0" type="checkbox" name="taskCheckbox" id="<%=i._id%>">
         </div>
         <div class="form-floating">
           <div class="form-control" id="task">
@@ -74,7 +74,7 @@
           </div>
           <label for="task">
             <div id="due_date">
-              <%=i.due_date%>
+              <%=i.dueDate.toDateString()%>
             </div>
           </label>
         </div>
