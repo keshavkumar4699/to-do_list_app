@@ -22,8 +22,8 @@ module.exports.addTask = function(req, res){
 }
 
 module.exports.deleteTask = async(req, res)=>{
-    for(let id of req.query.id){
-        await Task.findByIdAndDelete({_id: id});
+    for(let key in req.query.id){
+        await Task.findByIdAndDelete(req.query.id[key]);
     }
     return res.redirect('back');
 }
