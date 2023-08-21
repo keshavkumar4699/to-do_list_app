@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+//port defined
 const port = 8000;
 
 //use express router for all get and post method

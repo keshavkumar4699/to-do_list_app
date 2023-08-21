@@ -1,6 +1,7 @@
 const db = require('../config/mongoose.js');
 const Task = require('../models/taskSchema.js');
 
+//home page renderer
 module.exports.home = function(req, res){
     Task.find({}).then (taskList=>{
         return res.render('home', {
@@ -10,6 +11,7 @@ module.exports.home = function(req, res){
     });
 };
 
+//add task method
 module.exports.addTask = function(req, res){
     const newTask = new Task({
         description: req.body.description,
@@ -21,6 +23,7 @@ module.exports.addTask = function(req, res){
     return  res.redirect('back');
 }
 
+//delete task method
 module.exports.deleteTask = async(req, res)=>{
     for(let key in req.query.id){
         await Task.findByIdAndDelete(req.query.id[key]);
